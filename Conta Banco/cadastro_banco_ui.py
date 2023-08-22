@@ -18,6 +18,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QLineEdit,
     QMainWindow, QPushButton, QSizePolicy, QVBoxLayout,
     QWidget)
+import sys
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -169,3 +170,9 @@ class Ui_MainWindow(object):
         self.btn_saque.setText(QCoreApplication.translate("MainWindow", u"Saque", None))
     # retranslateUi
 
+app = QApplication(sys.argv)
+window = QMainWindow()
+ui = Ui_MainWindow()
+ui.setupUi(window)
+window.show()
+app.exec()
