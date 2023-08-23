@@ -169,10 +169,3 @@ class Ui_MainWindow(object):
         self.btn_deposito.setText(QCoreApplication.translate("MainWindow", u"Dep\u00f3sito", None))
         self.btn_saque.setText(QCoreApplication.translate("MainWindow", u"Saque", None))
     # retranslateUi
-
-app = QApplication(sys.argv)
-window = QMainWindow()
-ui = Ui_MainWindow()
-ui.setupUi(window)
-window.show()
-app.exec()
