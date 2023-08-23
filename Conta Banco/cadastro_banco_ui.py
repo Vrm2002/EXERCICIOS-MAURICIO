@@ -17,7 +17,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QLineEdit,
     QMainWindow, QPushButton, QSizePolicy, QVBoxLayout,
-    QWidget)
+    QWidget, QMessageBox)
+from cadastro import ContaBanco, Locker
 import sys
 
 class Ui_MainWindow(object):
@@ -99,6 +100,7 @@ class Ui_MainWindow(object):
 
         self.btn_cadastrar = QPushButton(self.frame_cadastro_banco)
         self.btn_cadastrar.setObjectName(u"btn_cadastrar")
+        self.btn_cadastrar.clicked.connect(self.cadastro)
 
         self.verticalLayout_6.addWidget(self.btn_cadastrar)
 
@@ -169,3 +171,23 @@ class Ui_MainWindow(object):
         self.btn_deposito.setText(QCoreApplication.translate("MainWindow", u"Dep\u00f3sito", None))
         self.btn_saque.setText(QCoreApplication.translate("MainWindow", u"Saque", None))
     # retranslateUi
+
+    def cadastro(self):
+
+        conta = ContaBanco()
+
+        if conta.__locker == False:
+            if self.txt_valor_de_deposito > 0:
+                conta.info(self.txt_nome_do_titular.text(), int(self.txt_numero_da_conta.text()), float(self.txt_valor_de_deposito.text()))
+                conta.cadastro_locker("True")
+                
+
+
+            else:
+                conta.info(self.txt_nome_do_titular.text(), int(self.txt_numero_da_conta.text()), 0)
+                conta.cadastro_locker("True")
+
+
+        else:
+            self.messagebox_erro = QMessageBox("Erro!")
+            self.messagebox_erro.show()
