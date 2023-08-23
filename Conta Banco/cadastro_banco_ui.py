@@ -18,7 +18,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QLineEdit,
     QMainWindow, QPushButton, QSizePolicy, QVBoxLayout,
     QWidget, QMessageBox)
-from cadastro import ContaBanco, Locker
+from cadastro import ContaBanco
 import sys
 
 class Ui_MainWindow(object):
@@ -173,21 +173,30 @@ class Ui_MainWindow(object):
     # retranslateUi
 
     def cadastro(self):
+       
 
-        conta = ContaBanco()
+        if self.txt_valor_de_deposito > 0:
 
-        if conta.__locker == False:
-            if self.txt_valor_de_deposito > 0:
-                conta.info(self.txt_nome_do_titular.text(), int(self.txt_numero_da_conta.text()), float(self.txt_valor_de_deposito.text()))
-                conta.cadastro_locker("True")
-                
+            try:
+                ContaBanco(self.txt_nome_do_titular.text(), int(self.txt_numero_da_conta.text()), float(self.txt_valor_de_deposito.text()))
+                 
 
-
-            else:
-                conta.info(self.txt_nome_do_titular.text(), int(self.txt_numero_da_conta.text()), 0)
-                conta.cadastro_locker("True")
+            except:
+                self.error_mensagem()
 
 
         else:
-            self.messagebox_erro = QMessageBox("Erro!")
-            self.messagebox_erro.show()
+            conta = ContaBanco(self.txt_nome_do_titular.text(), int(self.txt_numero_da_conta.text()), 0)
+               
+
+    def error_mensagem(self):
+        self.messagebox_erro = QMessageBox()
+        self.messagebox_erro.setIcon(QMessageBox.Warning)
+        self.messagebox_erro.setText("Erro nas infomações adicionadas.")
+        self.messagebox_erro.show()
+
+    def ui_mensagem(self):
+        self.messagebox_mudar_nome = QMessageBox()
+        self.messagebox_mudar_nome.setIcon(QMessageBox.Information)
+        self.messagebox_mudar_nome.setText("Somente o nome foi modificado.")
+        self.messagebox_mudar_nome.show()
