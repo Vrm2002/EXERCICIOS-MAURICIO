@@ -18,6 +18,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QLineEdit,
     QMainWindow, QPushButton, QSizePolicy, QTextBrowser,
     QVBoxLayout, QWidget)
+from cadastro import Cadastro
+from error_mensagens import MensagemErro
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -98,6 +100,7 @@ class Ui_MainWindow(object):
 
         self.btn_cadastrar = QPushButton(self.frame_cadastro_banco)
         self.btn_cadastrar.setObjectName(u"btn_cadastrar")
+        self.btn_cadastrar.clicked.connect(self.conta_cadastro)
 
         self.verticalLayout_7.addWidget(self.btn_cadastrar)
 
@@ -179,4 +182,14 @@ class Ui_MainWindow(object):
         self.lbl_valor_de_saque.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:10pt;\">Valor de Saque:</span></p></body></html>", None))
         self.btn_saque.setText(QCoreApplication.translate("MainWindow", u"Saque", None))
     # retranslateUi
+
+    def conta_cadastro(self):
+
+        if self.txt_numero_da_conta == None or self.txt_nome_do_titular == None:
+            self.erro_mensagem = MensagemErro()
+            self.erro_mensagem.show()
+        
+        else:
+            self.conta_cliente = Cadastro(self.txt_numero_da_conta, self.txt_nome_do_titular, self.txt_deposito_inicial)
+
 
