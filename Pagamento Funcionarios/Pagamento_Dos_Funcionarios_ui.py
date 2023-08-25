@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'Pagamento Dos Funcionarios.ui'
+## Form generated from reading UI file 'Pagamento_Dos_Funcionarios.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.5.2
 ##
