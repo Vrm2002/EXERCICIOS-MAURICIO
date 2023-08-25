@@ -7,14 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>997</width>
-    <height>664</height>
+    <height>779</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Cadastro Banco</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout_7">
+   <layout class="QVBoxLayout" name="verticalLayout_8">
     <item>
      <widget class="QFrame" name="frame_cadastro_banco">
       <property name="frameShape">
@@ -23,7 +23,7 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_6">
+      <layout class="QVBoxLayout" name="verticalLayout_7">
        <item>
         <widget class="QLabel" name="lbl_cadastro_banco">
          <property name="text">
@@ -76,7 +76,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QFrame" name="frame_valor_de_deposito">
+        <widget class="QFrame" name="frame_deposito_inicial">
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
          </property>
@@ -85,14 +85,18 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
-           <widget class="QLabel" name="lbl_valor_de_deposito">
+           <widget class="QLabel" name="lbl_deposito_inicial">
             <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Valor De Depósito:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Deposito Inicial:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="txt_valor_de_deposito"/>
+           <widget class="QLineEdit" name="txt_deposito_inicial">
+            <property name="placeholderText">
+             <string/>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -114,6 +118,42 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
+           <widget class="QFrame" name="frame_deposito">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_6">
+             <item>
+              <widget class="QLabel" name="lbl_deposito">
+               <property name="text">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Deposito:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="txt_deposito">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="placeholderText">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_deposito">
+               <property name="text">
+                <string>Depósito</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
            <widget class="QLabel" name="lbl_valor_de_saque">
             <property name="text">
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Valor de Saque:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -127,13 +167,6 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="btn_deposito">
-         <property name="text">
-          <string>Depósito</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QPushButton" name="btn_saque">
          <property name="text">
           <string>Saque</string>
@@ -141,35 +174,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QFrame" name="frame_resultados">
-         <property name="minimumSize">
-          <size>
-           <width>150</width>
-           <height>150</height>
-          </size>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_5">
-          <item>
-           <widget class="QLineEdit" name="txt_resultado">
-            <property name="minimumSize">
-             <size>
-              <width>150</width>
-              <height>150</height>
-             </size>
-            </property>
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
+        <widget class="QTextBrowser" name="txtb_resultado"/>
        </item>
       </layout>
      </widget>
