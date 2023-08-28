@@ -189,18 +189,23 @@ class Ui_MainWindow(object):
 
 
         try:
-            if self.txt_deposito_inicial.text() == "":
-                self.numero_da_conta = int(self.txt_numero_da_conta.text())
-                self.nome_do_titular = self.txt_nome_do_titular.text()
-                self.deposito_inicial = 0
-                self.conta_cliente = Cadastro(self.numero_da_conta, self.nome_do_titular, self.deposito_inicial)
-
+            if self.txt_nome_do_titular.text().isdigit() == True:
+                self.erro_mensagem = MensagemErro()
+                self.erro_mensagem.erro_cadastro()
 
             else:
-                self.numero_da_conta = int(self.txt_numero_da_conta.text())
-                self.nome_do_titular = self.txt_nome_do_titular.text()
-                self.deposito_inicial = float(self.txt_deposito_inicial.text())
-                self.conta_cliente = Cadastro(self.numero_da_conta, self.nome_do_titular, self.deposito_inicial)
+                if self.txt_deposito_inicial.text() == "":
+                    self.numero_da_conta = int(self.txt_numero_da_conta.text())
+                    self.nome_do_titular = self.txt_nome_do_titular.text()
+                    self.deposito_inicial = 0
+                    self.conta_cliente = Cadastro(self.numero_da_conta, self.nome_do_titular, self.deposito_inicial)
+
+
+                else:
+                    self.numero_da_conta = int(self.txt_numero_da_conta.text())
+                    self.nome_do_titular = self.txt_nome_do_titular.text()
+                    self.deposito_inicial = float(self.txt_deposito_inicial.text())
+                    self.conta_cliente = Cadastro(self.numero_da_conta, self.nome_do_titular, self.deposito_inicial)
 
 
         except:
@@ -209,7 +214,12 @@ class Ui_MainWindow(object):
 
 
         else:
-            self.txtb_resultado.append("Cliente Cadastrado.")
+            if self.txt_nome_do_titular.text().isdigit() == True:
+                pass
+
+
+            else:
+                self.txtb_resultado.append("Cliente Cadastrado.")
 
 
     def conta_deposito(self):
