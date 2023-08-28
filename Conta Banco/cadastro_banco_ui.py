@@ -128,6 +128,7 @@ class Ui_MainWindow(object):
 
         self.btn_deposito = QPushButton(self.frame_deposito)
         self.btn_deposito.setObjectName(u"btn_deposito")
+        self.btn_deposito.clicked.connect(self.conta_deposito)
 
         self.verticalLayout_6.addWidget(self.btn_deposito)
 
@@ -149,6 +150,7 @@ class Ui_MainWindow(object):
 
         self.btn_saque = QPushButton(self.frame_cadastro_banco)
         self.btn_saque.setObjectName(u"btn_saque")
+        self.btn_saque.clicked.connect(self.conta_saque)
 
         self.verticalLayout_7.addWidget(self.btn_saque)
 
@@ -185,11 +187,90 @@ class Ui_MainWindow(object):
 
     def conta_cadastro(self):
 
-        if self.txt_numero_da_conta == None or self.txt_nome_do_titular == None:
-            self.erro_mensagem = MensagemErro()
-            self.erro_mensagem.show()
-        
-        else:
-            self.conta_cliente = Cadastro(self.txt_numero_da_conta, self.txt_nome_do_titular, self.txt_deposito_inicial)
 
+        try:
+            if self.txt_nome_do_titular.text().isdigit() == True:
+                self.erro_mensagem = MensagemErro()
+                self.erro_mensagem.erro_cadastro()
+
+            else:
+                if self.txt_deposito_inicial.text() == "":
+                    self.numero_da_conta = int(self.txt_numero_da_conta.text())
+                    self.nome_do_titular = self.txt_nome_do_titular.text()
+                    self.deposito_inicial = 0
+                    self.conta_cliente = Cadastro(self.numero_da_conta, self.nome_do_titular, self.deposito_inicial)
+
+
+                else:
+                    self.numero_da_conta = int(self.txt_numero_da_conta.text())
+                    self.nome_do_titular = self.txt_nome_do_titular.text()
+                    self.deposito_inicial = float(self.txt_deposito_inicial.text())
+                    self.conta_cliente = Cadastro(self.numero_da_conta, self.nome_do_titular, self.deposito_inicial)
+
+
+        except:
+            self.erro_mensagem = MensagemErro()
+            self.erro_mensagem.erro_cadastro()
+
+
+        else:
+            if self.txt_nome_do_titular.text().isdigit() == True:
+                pass
+
+
+            else:
+                self.txtb_resultado.append("Cliente Cadastrado.")
+
+
+    def conta_deposito(self):
+        
+
+        try:
+            self.valor_depositado = float(self.txt_deposito.text())
+            self.conta_cliente.deposito(self.valor_depositado)
+
+
+        except: 
+            self.erro_mensagem = MensagemErro()
+            self.erro_mensagem.erro_deposito_sacar()
+
+
+        else:
+            self.txtb_resultado.append(f"Foi depositado o valor de {self.valor_depositado} R$. O saldo atual é de {self.conta_cliente.get_saldo()} R$.")
+
+
+    def conta_saque(self):
+
+
+        try:
+            self.valor_retirado = float(self.txt_valor_de_saque.text())
+            conta_cliente_saldo = self.conta_cliente.saldo_validate()
+
+
+            if conta_cliente_saldo == False:
+                self.erro_mensagem = MensagemErro()
+                self.erro_mensagem.erro_saldo_insuf()
+
+
+            elif self.valor_retirado < 1:
+                self.erro_mensagem = MensagemErro()
+                self.erro_mensagem.erro_deposito_sacar()
+
+
+            else:
+                self.conta_cliente.saque(self.valor_retirado)
+
+                
+        except:
+            self.erro_mensagem = MensagemErro()
+            self.erro_mensagem.erro_deposito_sacar()
+
+
+        else:
+            if conta_cliente_saldo == False or self.valor_retirado < 1:
+                pass
+
+
+            else:
+                self.txtb_resultado.append(f"O valor retirado foi de {self.valor_retirado} R$ + 5.00 R$ de taxa. O saldo atual é de {self.conta_cliente.get_saldo()} R$.")
 
