@@ -105,13 +105,13 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_3.addWidget(self.textBrowser)
 
-        self.pushButton_2 = QPushButton(self.centralwidget)
-        self.pushButton_2.setObjectName(u"pushButton_2")
-        self.pushButton_2.setFont(font1)
-        self.pushButton_2.setLayoutDirection(Qt.LeftToRight)
-        self.pushButton_2.setAutoDefault(False)
+        self.btn_voltar = QPushButton(self.centralwidget)
+        self.btn_voltar.setObjectName(u"btn_voltar")
+        self.btn_voltar.setFont(font1)
+        self.btn_voltar.setLayoutDirection(Qt.LeftToRight)
+        self.btn_voltar.setAutoDefault(False)
 
-        self.verticalLayout_3.addWidget(self.pushButton_2, 0, Qt.AlignRight)
+        self.verticalLayout_3.addWidget(self.btn_voltar, 0, Qt.AlignRight)
 
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -127,6 +127,6 @@ class Ui_MainWindow(object):
         self.lbl_rendaF.setText(QCoreApplication.translate("MainWindow", u"Renda Anual", None))
         self.lbl_gastosF.setText(QCoreApplication.translate("MainWindow", u"Gastos de sa\u00fade", None))
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Cadastrar", None))
-        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Voltar", None))
+        self.btn_voltar.setText(QCoreApplication.translate("MainWindow", u"Voltar", None))
     # retranslateUi
 
