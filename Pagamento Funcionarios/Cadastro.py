@@ -88,14 +88,4 @@ class JanelaPrincipal(QMainWindow):
             else:
                 self.txtb_exibir_texto.append('Pagamento Registrado')
             
-    def Funcionario_hora(self):
-        
-
-        try:
-            self.hora_funcionario = float(self.txt_hora.text())
-            self.(self.hora_funcionario)
-
-
-        except: 
-            self.erro_mensagem = MensagemErro()
-            self.erro_mensagem.()
+                
