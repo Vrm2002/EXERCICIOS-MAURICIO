@@ -52,7 +52,6 @@ class JanelaPrincipal(QMainWindow):
     def adicionar_funcionario(self):
         try:
             nome = self.txt_nome.text()
-            print(nome.isdigit())
             horas_trabalhadas = float(self.txt_hora.text())
             valor_por_hora = float(self.txt_valor_por_hora.text())
             terceirizado = self.ck_terceirizado.isChecked()
