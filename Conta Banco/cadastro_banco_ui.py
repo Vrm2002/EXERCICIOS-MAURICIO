@@ -205,7 +205,15 @@ class Ui_MainWindow(object):
                     self.numero_da_conta = int(self.txt_numero_da_conta.text())
                     self.nome_do_titular = self.txt_nome_do_titular.text()
                     self.deposito_inicial = float(self.txt_deposito_inicial.text())
-                    self.conta_cliente = Cadastro(self.numero_da_conta, self.nome_do_titular, self.deposito_inicial)
+
+
+                    if self.deposito_inicial < 0:
+                        self.erro_mensagem = MensagemErro()
+                        self.erro_mensagem.erro_deposito_sacar()
+
+                    
+                    else:
+                        self.conta_cliente = Cadastro(self.numero_da_conta, self.nome_do_titular, self.deposito_inicial)
 
 
         except:
@@ -214,7 +222,7 @@ class Ui_MainWindow(object):
 
 
         else:
-            if self.txt_nome_do_titular.text().isdigit() == True:
+            if self.txt_nome_do_titular.text().isdigit() == True or self.deposito_inicial < 0:
                 pass
 
 
