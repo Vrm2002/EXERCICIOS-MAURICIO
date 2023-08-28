@@ -1,5 +1,6 @@
 import sys
 from Funcionario import *
+from error_mensagens import MensagemErro
 from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QTextBrowser, QCheckBox
 
 
@@ -51,21 +52,50 @@ class JanelaPrincipal(QMainWindow):
 
     def adicionar_funcionario(self):
         try:
-            nome = self.txt_nome.text()
-            horas_trabalhadas = float(self.txt_hora.text())
-            valor_por_hora = float(self.txt_valor_por_hora.text())
-            terceirizado = self.ck_terceirizado.isChecked()
-            despesa_adicional = float(self.txt_despesa_adicional.text()) if terceirizado else 0
-            
-            funcionario = Funcionario(nome, horas_trabalhadas, valor_por_hora, terceirizado, despesa_adicional)
-            self.funcionarios.append(funcionario)
+            if self.txt_nome.text().isdigit() == True:
+                self.erro_mensagem = MensagemErro()
+                self.erro_mensagem.erro_Funcionario_Pagamento()
+                
+            else:
+                nome = self.txt_nome.text()
+                horas_trabalhadas = float(self.txt_hora.text())
+                valor_por_hora = float(self.txt_valor_por_hora.text())
+                terceirizado = self.ck_terceirizado.isChecked()
+                
+                despesa_adicional = float(self.txt_despesa_adicional.text()) if terceirizado else 0
+                
+                funcionario = Funcionario(nome, horas_trabalhadas, valor_por_hora, terceirizado, despesa_adicional)
+                self.funcionarios.append(funcionario)
 
-            self.txtb_exibir_texto.append(f"Funcionário adicionado: {funcionario}")
+                self.txtb_exibir_texto.append(f"Funcionário adicionado: {funcionario}")
+                
+                self.txt_nome.clear()
+                self.txt_hora.clear()
+                self.txt_valor_por_hora.clear()
+                self.txt_valor_por_hora.clear()
+                self.ck_terceirizado.setChecked(False)
+                
+        except:
+            self.erro_mensagem = MensagemErro()
+            self.erro_mensagem.erro_Funcionario_Pagamento()
+
+
+        else:
+            if self.txt_nome.text().isdigit() == True:
+                pass
+
+
+            else:
+                self.txtb_exibir_texto.append('Pagamento Registrado')
             
-            self.txt_nome.clear()
-            self.txt_hora.clear()
-            self.txt_valor_por_hora.clear()
-            self.txt_valor_por_hora.clear()
-            self.ck_terceirizado.setChecked(False)
-        except ValueError:
-            print('erro você digitou algum campo errado')
+    def Funcionario_hora(self):
+        
+
+        try:
+            self.hora_funcionario = float(self.txt_hora.text())
+            self.(self.hora_funcionario)
+
+
+        except: 
+            self.erro_mensagem = MensagemErro()
+            self.erro_mensagem.()
