@@ -6,7 +6,7 @@ class MensagemErro(QMessageBox):
     def __init__(self):
         super().__init__()
         
-    def erro_Funcionario_Pagamento(self):
+    def erro_funcionario_pagamento(self):
         self.mensagem_erro = QMessageBox()
         self.mensagem_erro.setText("Erro nos dados informados.")
         self.mensagem_erro.setIcon(QMessageBox.Warning)
