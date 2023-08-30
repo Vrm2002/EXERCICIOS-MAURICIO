@@ -1,6 +1,6 @@
-from Cadastro_exercircio3_ui import *
-from Cadastro_pessoa_juridica_ui import *
-
+from Cadastro_exercircio3_ui import Ui_MainWindow
+from PySide6.QtWidgets import QApplication, QMainWindow
+import sys
 
 
 if __name__ == "__main__":
