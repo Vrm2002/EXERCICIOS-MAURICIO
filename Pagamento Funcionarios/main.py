@@ -1,12 +1,10 @@
-from Pagamento_Dos_Funcionarios_ui import Ui_MainWindow
-from PySide6.QtWidgets import QApplication, QMainWindow
+from Cadastro import JanelaPrincipal, Funcionario
+from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QTextBrowser, QCheckBox
 import sys
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(window)
-    window.show()
-    app.exec()
+    janela = JanelaPrincipal()
+    janela.show()
+    sys.exit(app.exec_())
