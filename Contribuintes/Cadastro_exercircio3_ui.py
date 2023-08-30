@@ -8,21 +8,14 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
-    QMainWindow, QPushButton, QSizePolicy, QVBoxLayout,
-    QWidget)
+from PySide6.QtCore import *
+from PySide6.QtGui import *
+from PySide6.QtWidgets import *
+import sys
+from Cadastro_pessoa_juridica_ui import *
 
-class Ui_MainWindow(object):
+class Ui_MainWindow(QMainWindow):
     def setupUi(self, MainWindow):
-        if not MainWindow.objectName():
-            MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(348, 120)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -59,6 +52,7 @@ class Ui_MainWindow(object):
 
         self.btn_pessoa_juridica = QPushButton(self.frame_2)
         self.btn_pessoa_juridica.setObjectName(u"btn_pessoa_juridica")
+        self.btn_pessoa_juridica.clicked.connect(self.pessoa_juridica)
 
         self.horizontalLayout.addWidget(self.btn_pessoa_juridica)
 
@@ -77,5 +71,13 @@ class Ui_MainWindow(object):
         self.lbl_cadastro.setText(QCoreApplication.translate("MainWindow", u"Qual o tipo de Cadastro ser\u00e1 feito?", None))
         self.btn_pessoa_fisica.setText(QCoreApplication.translate("MainWindow", u"Pessoa F\u00edsica", None))
         self.btn_pessoa_juridica.setText(QCoreApplication.translate("MainWindow", u"Pessoa Jur\u00eddica", None))
+        
+        
+    def pessoa_juridica(self):
+        self.pessoa_juridica = Ui_MainWindow_Juridico()
+        self.pessoa_juridica.show()
     # retranslateUi
 
+
+
+    
