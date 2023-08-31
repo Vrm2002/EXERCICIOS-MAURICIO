@@ -8,23 +8,15 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QLineEdit,
-    QMainWindow, QPushButton, QSizePolicy, QTextBrowser,
-    QVBoxLayout, QWidget)
+from PySide6.QtCore import *
+from PySide6.QtGui import *
+from PySide6.QtWidgets import *
+import sys
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        if not MainWindow.objectName():
-            MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(800, 600)
-        self.centralwidget = QWidget(MainWindow)
+class Ui_MainWindow_fisica(QWidget):
+    def setupUi(self):
+        super().__init__()
+        self.centralwidget = QWidget()
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_3 = QVBoxLayout(self.centralwidget)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
@@ -113,15 +105,8 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_3.addWidget(self.btn_voltar, 0, Qt.AlignRight)
 
-        MainWindow.setCentralWidget(self.centralwidget)
-
-        self.retranslateUi(MainWindow)
-
-        QMetaObject.connectSlotsByName(MainWindow)
-    # setupUi
-
-    def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.setLayout(self.verticalLayout_3)
+        
         self.label.setText(QCoreApplication.translate("MainWindow", u"Cadastro Pessoa F\u00edsica", None))
         self.lbl_nomeF.setText(QCoreApplication.translate("MainWindow", u"Nome", None))
         self.lbl_rendaF.setText(QCoreApplication.translate("MainWindow", u"Renda Anual", None))

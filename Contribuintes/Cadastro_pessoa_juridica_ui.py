@@ -10,13 +10,15 @@
 
 from PySide6.QtCore import *
 from PySide6.QtGui import *
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QFrame
+
+from PySide6.QtWidgets import *
 import sys
 
 
-class Ui_MainWindow_Juridico(QDialog):
-    def __init__(self, MainWindow):
-        self.centralwidget = QWidget(MainWindow)
+class Ui_MainWindow_Juridico(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.centralwidget = QWidget()
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_3 = QVBoxLayout(self.centralwidget)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
@@ -206,15 +208,7 @@ class Ui_MainWindow_Juridico(QDialog):
 
         self.verticalLayout_3.addWidget(self.btn_cadastrar, 0, Qt.AlignRight)
 
-        MainWindow.setCentralWidget(self.centralwidget)
-
-        self.retranslateUi(MainWindow)
-
-        QMetaObject.connectSlotsByName(MainWindow)
-    # setupUi
-
-    def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Cadastro Pessoa Jur\u00eddica", None))
+        self.setLayout(self.verticalLayout_3)
         self.lbl_titulo.setText(QCoreApplication.translate("MainWindow", u"Cadastro Pessoa Jur\u00eddica", None))
         self.lbl_nomeJ.setText(QCoreApplication.translate("MainWindow", u"Nome", None))
         self.lbl_rendaJ.setText(QCoreApplication.translate("MainWindow", u"Renda Anual", None))

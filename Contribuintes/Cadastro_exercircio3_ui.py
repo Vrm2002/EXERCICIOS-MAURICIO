@@ -13,6 +13,7 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 import sys
 from Cadastro_pessoa_juridica_ui import *
+from Cadastro_pessoa_fisica_ui import *
 
 class Ui_MainWindow(QMainWindow):
     def setupUi(self, MainWindow):
@@ -47,6 +48,7 @@ class Ui_MainWindow(QMainWindow):
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.btn_pessoa_fisica = QPushButton(self.frame_2)
         self.btn_pessoa_fisica.setObjectName(u"btn_pessoa_fisica")
+        self.btn_pessoa_fisica.clicked.connect(self.pessoa_fisica)
 
         self.horizontalLayout.addWidget(self.btn_pessoa_fisica)
 
@@ -74,9 +76,12 @@ class Ui_MainWindow(QMainWindow):
         
         
     def pessoa_juridica(self):
-        self.pessoa_juridica = Ui_MainWindow_Juridico()
-        self.pessoa_juridica.show()
+        self.pessoa_juridicas = Ui_MainWindow_Juridico()
+        self.pessoa_juridicas.show()
     # retranslateUi
+    def pessoa_fisica(self):
+        self.pessoa_fisicas = Ui_MainWindow_fisica()
+        self.pessoa_fisicas.show()
 
 
 
