@@ -84,10 +84,10 @@ class Consultorio(QMainWindow):
             data_nascimento = self.txt_data_nascimento.date().toPython()
             pcd = self.ck_pcd.isChecked()
 
-            hora_chegada = datetime.now() # 
+            hora_chegada = datetime.now() 
 
             paciente = Paciente(nome, telefone, email, genero, data_nascimento, pcd)
-            paciente.chegada_fila = hora_chegada  #
+            paciente.chegada_fila = hora_chegada  
 
             self.adicionar_paciente_na_fila(paciente)
 
@@ -104,12 +104,21 @@ class Consultorio(QMainWindow):
             QMessageBox.critical(self, "Erro de Entrada", "Certifique-se de que os campos foram preenchidos corretamente.")
 
     def adicionar_paciente_na_fila(self, paciente):
-        if paciente.data_nascimento <= (datetime.now() - timedelta(days=365*60)).date():
+        if paciente.pcd and paciente.data_nascimento <= (datetime.now() - timedelta(days=365*60)).date():
+            # Paciente PCD com mais de 60 anos
+            self.fila_espera.insert(0, paciente)
+        elif paciente.pcd:
+            # Outro paciente PCD
+            self.fila_espera.append(paciente)
+        elif paciente.data_nascimento <= (datetime.now() - timedelta(days=365*60)).date():
+            # Paciente com mais de 60 anos (não PCD)
             self.fila_espera.insert(0, paciente)
         else:
+            # Outros pacientes
             self.fila_espera.append(paciente)
 
         self.atualizar_fila()
+
 
     def atualizar_fila(self):
         self.fila_espera.sort(key=lambda paciente: (paciente.pcd, paciente.data_nascimento, paciente.genero, paciente.chegada_fila))
