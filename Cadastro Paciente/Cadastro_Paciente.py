@@ -118,7 +118,6 @@ class Consultorio(QMainWindow):
         else:
             # Outros pacientes
             self.fila_espera.append(paciente)
-
         self.atualizar_fila()
 
 
