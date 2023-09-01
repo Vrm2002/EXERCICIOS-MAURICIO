@@ -4,7 +4,7 @@ from PySide6.QtWidgets import QWidget, QVBoxLayout, QFrame, QLabel, QLineEdit, Q
 import sys
 
 class Ui_MainWindow_fisica(QWidget):
-    def setupUi(self):
+    def __init__(self):
         super().__init__()
         self.centralwidget = QWidget()
         self.centralwidget.setObjectName(u"centralwidget")
