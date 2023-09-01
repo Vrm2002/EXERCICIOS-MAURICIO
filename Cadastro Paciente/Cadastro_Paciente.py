@@ -83,10 +83,15 @@ class Consultorio(QMainWindow):
         genero = self.cb_genero.currentText()
         data_nascimento = self.txt_data_nascimento.date().toPython()
         pcd = self.ck_pcd.isChecked()
+        
+        if not (nome and telefone and email and genero and data_nascimento):
+            QMessageBox.warning(self, "Erro", "Todos os campos devem ser preenchidos.")
+            return
+        QMessageBox.information(self, "Sucesso", "Cadastro realizado com sucesso!")
+        paciente = Paciente(nome, telefone, email, genero, data_nascimento, pcd)
 
         hora_chegada = datetime.now() 
 
-        paciente = Paciente(nome, telefone, email, genero, data_nascimento, pcd)
         paciente.chegada_fila = hora_chegada  
 
         self.adicionar_paciente_na_fila(paciente)
