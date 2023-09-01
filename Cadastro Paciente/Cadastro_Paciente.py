@@ -76,32 +76,29 @@ class Consultorio(QMainWindow):
         self.fila_espera = []
 
     def cadastrar_paciente(self):
-        try:
-            nome = self.txt_nome.text()
-            telefone = self.txt_telefone.text()
-            email = self.txt_email.text()
-            genero = self.cb_genero.currentText()
-            data_nascimento = self.txt_data_nascimento.date().toPython()
-            pcd = self.ck_pcd.isChecked()
+        
+        nome = self.txt_nome.text()
+        telefone = self.txt_telefone.text()
+        email = self.txt_email.text()
+        genero = self.cb_genero.currentText()
+        data_nascimento = self.txt_data_nascimento.date().toPython()
+        pcd = self.ck_pcd.isChecked()
 
-            hora_chegada = datetime.now() 
+        hora_chegada = datetime.now() 
 
-            paciente = Paciente(nome, telefone, email, genero, data_nascimento, pcd)
-            paciente.chegada_fila = hora_chegada  
+        paciente = Paciente(nome, telefone, email, genero, data_nascimento, pcd)
+        paciente.chegada_fila = hora_chegada  
 
-            self.adicionar_paciente_na_fila(paciente)
+        self.adicionar_paciente_na_fila(paciente)
 
-            self.txtb_exibir_fila.append(f"Paciente cadastrado: {paciente}")
+        self.txtb_exibir_fila.append(f"Paciente cadastrado: {paciente}")
 
-            self.txt_nome.clear()
-            self.txt_telefone.clear()
-            self.txt_email.clear()
-            self.cb_genero.setCurrentIndex(0)
-            self.txt_data_nascimento.setDate(datetime.now().date())
-            self.ck_pcd.setChecked(False)
-
-        except ValueError:
-            QMessageBox.critical(self, "Erro de Entrada", "Certifique-se de que os campos foram preenchidos corretamente.")
+        self.txt_nome.clear()
+        self.txt_telefone.clear()
+        self.txt_email.clear()
+        self.cb_genero.setCurrentIndex(0)
+        self.txt_data_nascimento.setDate(datetime.now().date())
+        self.ck_pcd.setChecked(False)
 
     def adicionar_paciente_na_fila(self, paciente):
         if paciente.pcd and paciente.data_nascimento <= (datetime.now() - timedelta(days=365*60)).date():
