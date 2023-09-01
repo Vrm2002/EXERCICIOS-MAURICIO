@@ -1,7 +1,6 @@
 from PySide6.QtCore import QCoreApplication
 from PySide6.QtGui import QFont, Qt
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QFrame, QLabel, QLineEdit, QPushButton, QTextBrowser, QSizePolicy, QComboBox
-import sys
 
 
 class Ui_MainWindow_Juridico(QWidget):
