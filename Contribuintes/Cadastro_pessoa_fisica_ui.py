@@ -1,7 +1,9 @@
 from PySide6.QtCore import QCoreApplication
 from PySide6.QtGui import QFont, Qt
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QFrame, QLabel, QLineEdit, QPushButton, QTextBrowser, QSizePolicy
-import sys
+from Cadastro_pFisico import Fisica
+from error_mensagens import MensagemErro
+
 
 class Ui_MainWindow_fisica(QWidget):
     def __init__(self):
@@ -71,6 +73,7 @@ class Ui_MainWindow_fisica(QWidget):
         self.pushButton = QPushButton(self.frame)
         self.pushButton.setObjectName(u"pushButton")
         self.pushButton.setFont(font1)
+        self.pushButton.clicked.connect(self.pessoa_fisica_cadastro)
 
         self.verticalLayout_2.addWidget(self.pushButton)
 
@@ -103,5 +106,46 @@ class Ui_MainWindow_fisica(QWidget):
         self.lbl_gastosF.setText(QCoreApplication.translate("MainWindow", u"Gastos de sa\u00fade", None))
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Cadastrar", None))
         self.btn_voltar.setText(QCoreApplication.translate("MainWindow", u"Voltar", None))
+
+        self.total_imposto = []
     # retranslateUi
+
+    def pessoa_fisica_cadastro(self):
+        try:
+            teste = self.txt_gastosF.text()
+
+            if teste == None:
+                nome = self.txt_nomeF.text()
+                gastos_saude = 0
+                renda_anual = float(self.txt_rendaF.text())
+
+            else:
+                nome = self.txt_nomeF.text()
+                gastos_saude = float(self.txt_gastosF.text())
+                renda_anual = float(self.txt_rendaF.text())
+
+
+        except:
+            self.erro_mensagem = MensagemErro
+            self.erro_mensagem.erro_cadastro()
+
+
+        else:
+            if renda_anual <= 0 or renda_anual < gastos_saude:
+                self.erro_mensagem = MensagemErro
+                self.erro_mensagem.erro_cadastro()
+                pass 
+            
+            else:
+                pessoa_fisica = Fisica(gastos_saude, nome, renda_anual)
+                self.total_imposto.append(pessoa_fisica.imposto())
+                total_imposto = sum(self.total_imposto)
+                self.textBrowser.append(f"Nome: {pessoa_fisica.nome}\nRenda_Anual: {pessoa_fisica.renda}\nImposto Arrecadado: {pessoa_fisica.imposto()}")
+                self.textBrowser.append(f"\nTotal de Imposto Arrecadado: {total_imposto}")
+            
+
+
+
+
+
 
