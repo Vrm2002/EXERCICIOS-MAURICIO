@@ -1,19 +1,8 @@
-# -*- coding: utf-8 -*-
-
-################################################################################
-## Form generated from reading UI file 'Cadastro exercircio3.ui'
-##
-## Created by: Qt User Interface Compiler version 6.5.2
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
-
-from PySide6.QtCore import *
-from PySide6.QtGui import *
-from PySide6.QtWidgets import *
-import sys
-from Cadastro_pessoa_juridica_ui import *
-from Cadastro_pessoa_fisica_ui import *
+from PySide6.QtCore import QCoreApplication, QMetaObject
+from PySide6.QtGui import QFont
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QFrame, QLabel, QPushButton, QMainWindow, QHBoxLayout
+from Cadastro_pessoa_juridica_ui import Ui_MainWindow_Juridico
+from Cadastro_pessoa_fisica_ui import Ui_MainWindow_fisica
 
 class Ui_MainWindow(QMainWindow):
     def setupUi(self, MainWindow):
