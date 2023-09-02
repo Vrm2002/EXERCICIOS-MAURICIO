@@ -3,7 +3,7 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, Q
 from datetime import datetime, timedelta
 
 class Paciente:
-    def __init__(self, nome, telefone, email, genero, data_nascimento, pcd=False):
+    def __init__(self, nome, telefone, email, genero, data_nascimento, pcd):
         self.nome = nome
         self.telefone = telefone
         self.email = email
