@@ -114,7 +114,7 @@ class Ui_MainWindow_fisica(QWidget):
         try:
             teste = self.txt_gastosF.text()
 
-            if teste == None:
+            if teste == "":
                 nome = self.txt_nomeF.text()
                 gastos_saude = 0
                 renda_anual = float(self.txt_rendaF.text())
@@ -126,13 +126,13 @@ class Ui_MainWindow_fisica(QWidget):
 
 
         except:
-            self.erro_mensagem = MensagemErro
+            self.erro_mensagem = MensagemErro()
             self.erro_mensagem.erro_cadastro()
 
 
         else:
             if renda_anual <= 0 or renda_anual < gastos_saude:
-                self.erro_mensagem = MensagemErro
+                self.erro_mensagem = MensagemErro()
                 self.erro_mensagem.erro_cadastro()
                 pass 
             
