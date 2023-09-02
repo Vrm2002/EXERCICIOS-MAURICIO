@@ -204,7 +204,7 @@ class Ui_MainWindow_Juridico(QWidget):
         self.lbl_nomeJ.setText(QCoreApplication.translate("MainWindow", u"Nome", None))
         self.lbl_rendaJ.setText(QCoreApplication.translate("MainWindow", u"Renda Anual", None))
         self.lbl_gastosJ.setText(QCoreApplication.translate("MainWindow", u"N\u00famero de Funcion\u00e1rios", None))
-        # self.cb_numero_funcionario.setItemText(0, QCoreApplication.translate("MainWindow", u"0", None))
+        self.cb_numero_funcionario.setItemText(0, QCoreApplication.translate("MainWindow", u"0", None))
         self.cb_numero_funcionario.setItemText(1, QCoreApplication.translate("MainWindow", u"1", None))
         self.cb_numero_funcionario.setItemText(2, QCoreApplication.translate("MainWindow", u"2", None))
         self.cb_numero_funcionario.setItemText(3, QCoreApplication.translate("MainWindow", u"3", None))
@@ -324,7 +324,7 @@ class Ui_MainWindow_Juridico(QWidget):
 
 
         else:
-            if renda_anual <= 0 or num_func == "":
+            if renda_anual <= 0:
                 self.erro_mensagem.erro_cadastro()
                 pass
             

@@ -1,19 +1,8 @@
 import sys, re
 from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QTextBrowser, QCheckBox, QComboBox, QDateEdit, QMessageBox
 from datetime import datetime, timedelta
+from paciente import Paciente
 
-class Paciente:
-    def __init__(self, nome, telefone, email, genero, data_nascimento, pcd):
-        self.nome = nome
-        self.telefone = telefone
-        self.email = email
-        self.genero = genero
-        self.data_nascimento = data_nascimento
-        self.pcd = pcd
-        self.chegada_fila = datetime.now()
-    
-    def __str__(self):
-        return self.nome
 
 class Consultorio(QMainWindow):
     def __init__(self):
@@ -150,9 +139,3 @@ class Consultorio(QMainWindow):
         else:
             self.txtb_exibir_fila.clear()
             self.txtb_exibir_fila.append("A fila está vazia.")
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    consultorio = Consultorio()
-    consultorio.show()
-    sys.exit(app.exec())
