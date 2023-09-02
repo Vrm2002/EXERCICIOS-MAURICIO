@@ -106,23 +106,19 @@ class Consultorio(QMainWindow):
         self.ck_pcd.setChecked(False)
 
     def adicionar_paciente_na_fila(self, paciente):
-        if paciente.pcd and paciente.data_nascimento <= (datetime.now() - timedelta(days=365*60)).date():
-            # Paciente PCD com mais de 60 anos
+        if paciente.pcd:
+            # Paciente PCD
             self.fila_espera.insert(0, paciente)
-        elif paciente.pcd:
-            # Outro paciente PCD
-            self.fila_espera.append(paciente)
         elif paciente.data_nascimento <= (datetime.now() - timedelta(days=365*60)).date():
             # Paciente com mais de 60 anos (não PCD)
-            self.fila_espera.insert(0, paciente)
-        else:
-            # Outros pacientes
             self.fila_espera.append(paciente)
+        else:
+            # Outros pacientes (não PCD)
+            self.fila_espera.insert(1, paciente)  # Inserir logo após os pacientes PCD
         self.atualizar_fila()
 
-
     def atualizar_fila(self):
-        self.fila_espera.sort(key=lambda paciente: (paciente.pcd, paciente.data_nascimento, paciente.genero, paciente.chegada_fila))
+        self.fila_espera.sort(key=lambda paciente: (paciente.data_nascimento, paciente.pcd, paciente.genero, paciente.chegada_fila))
         self.txtb_exibir_fila.clear()
         for contador_fila, paciente in enumerate(self.fila_espera):
             self.txtb_exibir_fila.append(f"{contador_fila+1}. {paciente.nome} - {'PCD' if paciente.pcd else 'Não PCD'} - Data De Nascimento: {paciente.data_nascimento} - Genero: {paciente.genero} - Horario do cadastro {paciente.chegada_fila}") 
