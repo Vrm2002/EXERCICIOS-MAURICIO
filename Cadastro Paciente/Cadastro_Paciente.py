@@ -1,4 +1,4 @@
-import sys
+import sys, re
 from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QTextBrowser, QCheckBox, QComboBox, QDateEdit, QMessageBox
 from datetime import datetime, timedelta
 
@@ -84,9 +84,27 @@ class Consultorio(QMainWindow):
         data_nascimento = self.txt_data_nascimento.date().toPython()
         pcd = self.ck_pcd.isChecked()
         
-        if not (nome and telefone and email and genero and data_nascimento):
+        if not (email and genero and data_nascimento):
             QMessageBox.warning(self, "Erro", "Todos os campos devem ser preenchidos.")
             return
+        
+        if not nome:
+            QMessageBox.warning(self, "Erro", "O campo Nome deve ser preenchido.")
+            return
+        
+        if not re.match(r'^[A-Za-z\s]*$', nome):
+            QMessageBox.warning(self, "Erro", "O campo Nome não deve conter números.")
+            return
+        
+        if not telefone:
+            QMessageBox.warning(self, "Erro", "O campo Telefone deve ser preenchido.")
+            return
+        
+        if not re.match(r'^\d+$', telefone):
+            QMessageBox.warning(self, "Erro", "O campo Telefone deve conter apenas números.")
+            return
+        
+        
         QMessageBox.information(self, "Sucesso", "Cadastro realizado com sucesso!")
         paciente = Paciente(nome, telefone, email, genero, data_nascimento, pcd)
 
