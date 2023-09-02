@@ -1,6 +1,8 @@
 from PySide6.QtCore import QCoreApplication
 from PySide6.QtGui import QFont, Qt
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QFrame, QLabel, QLineEdit, QPushButton, QTextBrowser, QSizePolicy, QComboBox
+from Cadastro_pJuridico import Juridico
+from error_mensagens import MensagemErro
 
 
 class Ui_MainWindow_Juridico(QWidget):
@@ -172,6 +174,7 @@ class Ui_MainWindow_Juridico(QWidget):
         self.btn_cadastroJ = QPushButton(self.frame)
         self.btn_cadastroJ.setObjectName(u"btn_cadastroJ")
         self.btn_cadastroJ.setFont(font1)
+        self.btn_cadastroJ.clicked.connect(self.pessoa_juridica_cadastro)
 
         self.verticalLayout_2.addWidget(self.btn_cadastroJ)
 
@@ -201,7 +204,7 @@ class Ui_MainWindow_Juridico(QWidget):
         self.lbl_nomeJ.setText(QCoreApplication.translate("MainWindow", u"Nome", None))
         self.lbl_rendaJ.setText(QCoreApplication.translate("MainWindow", u"Renda Anual", None))
         self.lbl_gastosJ.setText(QCoreApplication.translate("MainWindow", u"N\u00famero de Funcion\u00e1rios", None))
-        self.cb_numero_funcionario.setItemText(0, QCoreApplication.translate("MainWindow", u"0", None))
+        # self.cb_numero_funcionario.setItemText(0, QCoreApplication.translate("MainWindow", u"0", None))
         self.cb_numero_funcionario.setItemText(1, QCoreApplication.translate("MainWindow", u"1", None))
         self.cb_numero_funcionario.setItemText(2, QCoreApplication.translate("MainWindow", u"2", None))
         self.cb_numero_funcionario.setItemText(3, QCoreApplication.translate("MainWindow", u"3", None))
@@ -305,5 +308,36 @@ class Ui_MainWindow_Juridico(QWidget):
 
         self.btn_cadastroJ.setText(QCoreApplication.translate("MainWindow", u"Cadastrar", None))
         self.btn_cadastrar.setText(QCoreApplication.translate("MainWindow", u"Voltar", None))
+        self.total_imposto = []
     # retranslateUi
+
+    def pessoa_juridica_cadastro(self):
+        try:
+            nome = self.txt_nomeJ.text()
+            renda_anual = float(self.txt_rendaJ.text())
+            num_func = self.cb_numero_funcionario.currentIndex()
+
+
+        except:
+            self.erro_mensagem = MensagemErro()
+            self.erro_mensagem.erro_cadastro()
+
+
+        else:
+            if renda_anual <= 0 or num_func == "":
+                self.erro_mensagem.erro_cadastro()
+                pass
+            
+            else:
+                pessoa_juridica = Juridico(num_func,nome,renda_anual)
+                self.total_imposto.append(pessoa_juridica.imposto())
+                total_imposto = sum(self.total_imposto)
+                self.textBrowser.append(f"Nome: {pessoa_juridica.nome}\nRenda_Anual: {pessoa_juridica.renda}\nImposto Arrecadado: {pessoa_juridica.imposto()}")
+                self.textBrowser.append(f"\nTotal de Imposto Arrecadado: {total_imposto}")
+                
+
+    def voltar(self):
+        self.hide()
+
+
 

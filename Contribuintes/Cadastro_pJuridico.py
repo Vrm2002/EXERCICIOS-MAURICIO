@@ -22,4 +22,3 @@ class Juridico(Pessoa):
             imposto = self.__renda_anual * 0.14
 
             return imposto
-

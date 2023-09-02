@@ -67,7 +67,8 @@ class Ui_MainWindow(QMainWindow):
     def pessoa_juridica(self):
         self.pessoa_juridicas = Ui_MainWindow_Juridico()
         self.pessoa_juridicas.show()
-    # retranslateUi
+
+    
     def pessoa_fisica(self):
         self.pessoa_fisicas = Ui_MainWindow_fisica()
         self.pessoa_fisicas.show()

@@ -95,6 +95,7 @@ class Ui_MainWindow_fisica(QWidget):
         self.btn_voltar.setFont(font1)
         self.btn_voltar.setLayoutDirection(Qt.LeftToRight)
         self.btn_voltar.setAutoDefault(False)
+        self.btn_voltar.clicked.connect(self.voltar)
 
         self.verticalLayout_3.addWidget(self.btn_voltar, 0, Qt.AlignRight)
 
@@ -142,6 +143,10 @@ class Ui_MainWindow_fisica(QWidget):
                 total_imposto = sum(self.total_imposto)
                 self.textBrowser.append(f"Nome: {pessoa_fisica.nome}\nRenda_Anual: {pessoa_fisica.renda}\nImposto Arrecadado: {pessoa_fisica.imposto()}")
                 self.textBrowser.append(f"\nTotal de Imposto Arrecadado: {total_imposto}")
+
+    def voltar(self):
+        self.hide()
+
             
 
 
