@@ -125,8 +125,7 @@ class Consultorio(QMainWindow):
         self.fila_espera.sort(key=lambda paciente: (paciente.pcd, paciente.data_nascimento, paciente.genero, paciente.chegada_fila))
         self.txtb_exibir_fila.clear()
         for contador_fila, paciente in enumerate(self.fila_espera):
-            #tempo_espera = datetime.now() - paciente.chegada_fila
-            self.txtb_exibir_fila.append(f"{contador_fila+1}. {paciente.nome} - {'PCD' if paciente.pcd else 'Não PCD'} - Data De Nascimento: {paciente.data_nascimento} - Genero: {paciente.genero} - Horario do cadastro {paciente.chegada_fila}") # - Tempo de Espera: {tempo_espera}")
+            self.txtb_exibir_fila.append(f"{contador_fila+1}. {paciente.nome} - {'PCD' if paciente.pcd else 'Não PCD'} - Data De Nascimento: {paciente.data_nascimento} - Genero: {paciente.genero} - Horario do cadastro {paciente.chegada_fila}") 
             
     def chamar_proximo_paciente(self):
         if self.fila_espera:
