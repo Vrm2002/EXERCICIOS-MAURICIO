@@ -1,9 +1,9 @@
-import sys
+import sys, re
 from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QTextBrowser, QCheckBox, QComboBox, QDateEdit, QMessageBox
 from datetime import datetime, timedelta
 
 class Paciente:
-    def __init__(self, nome, telefone, email, genero, data_nascimento, pcd=False):
+    def __init__(self, nome, telefone, email, genero, data_nascimento, pcd):
         self.nome = nome
         self.telefone = telefone
         self.email = email
@@ -76,47 +76,70 @@ class Consultorio(QMainWindow):
         self.fila_espera = []
 
     def cadastrar_paciente(self):
-        try:
-            nome = self.txt_nome.text()
-            telefone = self.txt_telefone.text()
-            email = self.txt_email.text()
-            genero = self.cb_genero.currentText()
-            data_nascimento = self.txt_data_nascimento.date().toPython()
-            pcd = self.ck_pcd.isChecked()
+        
+        nome = self.txt_nome.text()
+        telefone = self.txt_telefone.text()
+        email = self.txt_email.text()
+        genero = self.cb_genero.currentText()
+        data_nascimento = self.txt_data_nascimento.date().toPython()
+        pcd = self.ck_pcd.isChecked()
+        
+        if not (email and genero and data_nascimento):
+            QMessageBox.warning(self, "Erro", "Todos os campos devem ser preenchidos.")
+            return
+        
+        if not nome:
+            QMessageBox.warning(self, "Erro", "O campo Nome deve ser preenchido.")
+            return
+        
+        if not re.match(r'^[A-Za-z\s]*$', nome):
+            QMessageBox.warning(self, "Erro", "O campo Nome não deve conter números.")
+            return
+        
+        if not telefone:
+            QMessageBox.warning(self, "Erro", "O campo Telefone deve ser preenchido.")
+            return
+        
+        if not re.match(r'^\d+$', telefone):
+            QMessageBox.warning(self, "Erro", "O campo Telefone deve conter apenas números.")
+            return
+        
+        
+        QMessageBox.information(self, "Sucesso", "Cadastro realizado com sucesso!")
+        paciente = Paciente(nome, telefone, email, genero, data_nascimento, pcd)
 
-            hora_chegada = datetime.now() # 
+        hora_chegada = datetime.now() 
 
-            paciente = Paciente(nome, telefone, email, genero, data_nascimento, pcd)
-            paciente.chegada_fila = hora_chegada  #
+        paciente.chegada_fila = hora_chegada  
 
-            self.adicionar_paciente_na_fila(paciente)
+        self.adicionar_paciente_na_fila(paciente)
 
-            self.txtb_exibir_fila.append(f"Paciente cadastrado: {paciente}")
+        self.txtb_exibir_fila.append(f"Paciente cadastrado: {paciente}")
 
-            self.txt_nome.clear()
-            self.txt_telefone.clear()
-            self.txt_email.clear()
-            self.cb_genero.setCurrentIndex(0)
-            self.txt_data_nascimento.setDate(datetime.now().date())
-            self.ck_pcd.setChecked(False)
-
-        except ValueError:
-            QMessageBox.critical(self, "Erro de Entrada", "Certifique-se de que os campos foram preenchidos corretamente.")
+        self.txt_nome.clear()
+        self.txt_telefone.clear()
+        self.txt_email.clear()
+        self.cb_genero.setCurrentIndex(0)
+        self.txt_data_nascimento.setDate(datetime.now().date())
+        self.ck_pcd.setChecked(False)
 
     def adicionar_paciente_na_fila(self, paciente):
-        if paciente.data_nascimento <= (datetime.now() - timedelta(days=365*60)).date():
+        if paciente.pcd:
+            # Paciente PCD
             self.fila_espera.insert(0, paciente)
-        else:
+        elif paciente.data_nascimento <= (datetime.now() - timedelta(days=365*60)).date():
+            # Paciente com mais de 60 anos (não PCD)
             self.fila_espera.append(paciente)
-
+        else:
+            # Outros pacientes (não PCD)
+            self.fila_espera.insert(1, paciente)  # Inserir logo após os pacientes PCD
         self.atualizar_fila()
 
     def atualizar_fila(self):
-        self.fila_espera.sort(key=lambda paciente: (paciente.pcd, paciente.data_nascimento, paciente.genero, paciente.chegada_fila))
+        self.fila_espera.sort(key=lambda paciente: (paciente.data_nascimento, paciente.pcd, paciente.genero, paciente.chegada_fila))
         self.txtb_exibir_fila.clear()
         for contador_fila, paciente in enumerate(self.fila_espera):
-            #tempo_espera = datetime.now() - paciente.chegada_fila
-            self.txtb_exibir_fila.append(f"{contador_fila+1}. {paciente.nome} - {'PCD' if paciente.pcd else 'Não PCD'} - Data De Nascimento: {paciente.data_nascimento} - Genero: {paciente.genero} - Horario do cadastro {paciente.chegada_fila}") # - Tempo de Espera: {tempo_espera}")
+            self.txtb_exibir_fila.append(f"{contador_fila+1}. {paciente.nome} - {'PCD' if paciente.pcd else 'Não PCD'} - Data De Nascimento: {paciente.data_nascimento} - Genero: {paciente.genero} - Horario do cadastro {paciente.chegada_fila}") 
             
     def chamar_proximo_paciente(self):
         if self.fila_espera:
