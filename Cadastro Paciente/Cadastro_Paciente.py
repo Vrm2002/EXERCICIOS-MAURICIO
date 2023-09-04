@@ -122,7 +122,14 @@ class Consultorio(QMainWindow):
         self.atualizar_fila()
 
     def atualizar_fila(self):
-        self.fila_espera.sort(key=lambda paciente: (paciente.data_nascimento, paciente.pcd, paciente.genero, paciente.chegada_fila))
+        pacientes_pcd = [paciente for paciente in self.fila_espera if paciente.pcd]
+        pacientes_nao_pcd = [paciente for paciente in self.fila_espera if not paciente.pcd]
+
+        pacientes_pcd.sort(key=lambda paciente: (paciente.data_nascimento, paciente.genero, paciente.chegada_fila))
+        pacientes_nao_pcd.sort(key=lambda paciente: (paciente.data_nascimento, paciente.genero, paciente.chegada_fila))
+
+        self.fila_espera = pacientes_pcd + pacientes_nao_pcd
+
         self.txtb_exibir_fila.clear()
         for contador_fila, paciente in enumerate(self.fila_espera):
             self.txtb_exibir_fila.append(f"{contador_fila+1}. {paciente.nome} - {'PCD' if paciente.pcd else 'Não PCD'} - Data De Nascimento: {paciente.data_nascimento} - Genero: {paciente.genero} - Horario do cadastro {paciente.chegada_fila}") 
