@@ -1,6 +1,6 @@
 import sys, re
 from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QTextBrowser, QCheckBox, QComboBox, QDateEdit, QMessageBox
-from datetime import datetime, timedelta
+from datetime import datetime
 from paciente import Paciente
 
 
@@ -113,15 +113,12 @@ class Consultorio(QMainWindow):
         self.ck_pcd.setChecked(False)
 
     def adicionar_paciente_na_fila(self, paciente):
-        if paciente.pcd:
-            # Paciente PCD
-            self.fila_espera.insert(0, paciente)
-        elif paciente.data_nascimento <= (datetime.now() - timedelta(days=365*60)).date():
-            # Paciente com mais de 60 anos (não PCD)
-            self.fila_espera.append(paciente)
+        if self.ck_pcd.isChecked():
+    
+            self.fila_espera.insert(0,paciente)
+            
         else:
-            # Outros pacientes (não PCD)
-            self.fila_espera.insert(1, paciente)  # Inserir logo após os pacientes PCD
+            self.fila_espera.append(paciente)
         self.atualizar_fila()
 
     def atualizar_fila(self):
